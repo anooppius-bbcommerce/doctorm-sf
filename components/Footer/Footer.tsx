@@ -29,11 +29,8 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import FooterItems from "./FooterItems";
 import doctorMlogo from "../../images/DoctorM.svg";
-import mada from "../../images/2560px-Mada_Logo.svg.png";
 import tabby from "../../images/Tabby_logo.webp";
-import american from "../../images/american-express.png";
-import master from "../../images/master_card.png";
-import visa from "../../images/visa.png";
+import cards from "../../images/flag-card-sprites.webp";
 
 const footerLists = [
   {
@@ -198,26 +195,15 @@ export function Footer({}) {
               <Box
                 sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}
               >
-                <Image
-                  src={american}
-                  style={{ width: "30px", height: "25px" }}
-                  alt="text"
-                />
-                <Image
-                  src={visa}
-                  style={{ width: "50px", height: "25px" }}
-                  alt="text"
-                />
-                <Image
-                  src={master}
-                  style={{ width: "46px", height: "25px" }}
-                  alt="text"
-                />
-                <Image
-                  src={mada}
-                  style={{ width: "66px", height: "25px" }}
-                  alt="text"
-                />
+                <Box sx={{background:`url(${cards.src}) 244px -183px`,width:'30px',height:'34px', border:'0px solid'}}>
+                </Box>
+                <Box sx={{background:`url(${cards.src}) 257px -21px`,width:'51px',height:'34px', border:'0px solid'}}>
+                </Box>
+                <Box sx={{background:`url(${cards.src}) 137px -21px`,width:'48px',height:'34px', border:'0px solid'}}>
+                </Box>
+                <Box sx={{background:`url(${cards.src}) 141px -183px`,width:'71px',height:'31px', border:'0px solid'}}>
+                </Box>
+               
                 <Image
                   src={tabby}
                   style={{ width: "75px", height: "25px" }}

@@ -66,6 +66,7 @@ export function CompleteCheckoutButton({
             textTransform: "capitalize",
             borderRadius: "5px",
             textDecoration: "none",
+            width:'300px'
           }}
           sx={{mt:2}}
         >

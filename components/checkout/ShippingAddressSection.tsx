@@ -18,6 +18,7 @@ import { Box, Button, Grid, styled, Card } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { checkoutSectionHeaderActive } from "./EmailSection";
 import Typography from "@mui/material/Typography";
+import EditIcon from '@mui/icons-material/Edit';
 
 export interface ShippingAddressSectionProps {
   active: boolean;
@@ -97,6 +98,9 @@ export function ShippingAddressSection({
         >
           {t.formatMessage(messages.shippingAddressCardHeader)}
         </Typography>
+        {editing && (<Box sx={{ml:1,mt:.5}}>
+          <EditIcon sx={{fontSize:'20px', color:'#F7961C', cursor:'pointer'}} />
+        </Box>)}
       </Box>
 
       {active && (

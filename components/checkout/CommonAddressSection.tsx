@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useIntl } from "react-intl";
 
 import { notNullable } from "@/lib/util";
@@ -22,6 +22,7 @@ import TextField from "@mui/material/TextField";
 import { checkoutSectionHeaderActive } from "./EmailSection";
 import Typography from "@mui/material/Typography";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
+import EditIcon from '@mui/icons-material/Edit';
 
 export interface CommonAddressSectionProps {
   active: boolean;
@@ -44,6 +45,10 @@ export function CommonAddressSection({
     useCheckoutBillingAddressUpdateMutation({});
 
   const { billingAddress } = checkout;
+
+  // useEffect(()=>{
+  //   console.log("editing:"+editing)
+  // },[])
 
   const onSameAsBilling = async () => {
     if (!billingAddress) {
@@ -113,6 +118,9 @@ export function CommonAddressSection({
         >
           {t.formatMessage(messages.shippingAddressCardHeader)}
         </Typography>
+        {(active && !editing) && (<Box sx={{ml:1,mt:.5}}>
+          <EditIcon sx={{fontSize:'20px', color:'#F7961C', cursor:'pointer'}} onClick={() => setEditing(true)} />
+        </Box>)}
       </Box>
 
       {active && (
@@ -122,7 +130,7 @@ export function CommonAddressSection({
               <>
                 <AddressForm
                   existingAddressData={checkout.shippingAddress || undefined}
-                  toggleEdit={() => setEditing(false)}
+                  toggleEdit={()=>setEditing(false)}
                   updateAddressMutation={updateMutation}
                 />
               </>
@@ -131,7 +139,7 @@ export function CommonAddressSection({
                 {!!checkout.shippingAddress && (
                   <AddressDisplay address={checkout.shippingAddress} />
                 )}
-                <Button
+                {/* <Button
                   sx={{ mt: 2 }}
                   variant="contained"
                   onClick={() => setEditing(true)}
@@ -144,7 +152,7 @@ export function CommonAddressSection({
                   }}
                 >
                   {t.formatMessage(messages.changeButton)}
-                </Button>
+                </Button> */}
               </Box>
             )}
           </Card>

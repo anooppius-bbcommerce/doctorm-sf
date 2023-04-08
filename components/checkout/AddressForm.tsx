@@ -14,6 +14,7 @@ import { Box, Button, Grid, styled } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
+import {textBoxStyler} from "../../lib/styles/commonStyles";
 
 const emirates = [
   {
@@ -45,6 +46,8 @@ const emirates = [
     label: "Ajman",
   },
 ];
+
+
 
 export interface AddressFormData {
   firstName: string;
@@ -108,7 +111,7 @@ export function AddressForm({
   return (
     <form method="post" onSubmit={onAddressFormSubmit}>
       <Box sx={{ mt: 2 }}>
-        <Box sx={{ mt: 1 }}>
+        <Box sx={textBoxStyler}>
           {/* <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
             {t.formatMessage(messages.firstNameField)}
           </label> */}
@@ -132,6 +135,7 @@ export function AddressForm({
               {...registerAddress("firstName", {
                 required: true,
               })}
+              sx={{width:'100%'}}
             />
             {!!errorsAddress.firstName && (
               <p>{errorsAddress.firstName.message}</p>
@@ -139,7 +143,7 @@ export function AddressForm({
           </Box>
         </Box>
 
-        <Box  sx={{width:'223px',mt:2}}>
+        <Box  sx={textBoxStyler}>
           {/* <label htmlFor="province" className="block text-sm font-medium text-gray-700">
             {t.formatMessage(messages.lastNameField)}
           </label> */}
@@ -162,7 +166,7 @@ export function AddressForm({
           </Box>
         </Box>
 
-        <Box  sx={{width:'223px',mt:2}}>
+        <Box  sx={textBoxStyler}>
           <Box>
             <TextField
               id="countryArea"
@@ -186,7 +190,7 @@ export function AddressForm({
           </Box>
         </Box>
 
-        <Box  sx={{width:'223px',mt:2}}>
+        <Box  sx={textBoxStyler}>
           <Box className="mt-2">
             <TextField
               type="text"
@@ -206,7 +210,7 @@ export function AddressForm({
           </Box>
         </Box>
 
-        <Box  sx={{width:'223px',mt:2}}>
+        <Box  sx={textBoxStyler}>
           {/* <label htmlFor="address" className="block text-sm font-medium text-gray-700">
             {t.formatMessage(messages.phoneField)}
           </label> */}
@@ -223,13 +227,13 @@ export function AddressForm({
                 pattern:
                   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i,
               })}
-              sx={{width:'223px'}}
+              sx={{width:'100%'}}
             />
             {errorsAddress.phone && <p>{errorsAddress.phone.message}</p>}
           </Box>
         </Box>
 
-        <Box sx={{ mt: 2 }}>
+        <Box sx={textBoxStyler}>
           <Button
             variant="contained"
             onClick={onAddressFormSubmit}
@@ -239,6 +243,7 @@ export function AddressForm({
               textTransform: "capitalize",
               borderRadius: "5px",
               textDecoration: "none",
+              width:'100%'
             }}
           >
             {t.formatMessage(messages.saveButton)}

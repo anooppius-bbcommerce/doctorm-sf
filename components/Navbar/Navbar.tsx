@@ -335,7 +335,8 @@ export function Navbar(props) {
                     fontWeight: "bold",
                     display: "block",
                     ml: 8,
-                    fontSize: "14px",
+                    fontSize: "18px",
+                    textTransform:"capitalize"
                   }}
                   className={roboto.className}
                 >

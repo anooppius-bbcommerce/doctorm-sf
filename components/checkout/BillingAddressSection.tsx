@@ -16,6 +16,7 @@ import { Box, Button, Grid, styled, Card } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import { checkoutSectionHeaderActive } from "./EmailSection";
+import EditIcon from '@mui/icons-material/Edit';
 export interface BillingAddressSection {
   active: boolean;
   checkout: CheckoutDetailsFragment;
@@ -56,6 +57,9 @@ export function BillingAddressSection({
         <Typography sx={checkoutSectionHeaderActive}>
           {t.formatMessage(messages.billingAddressCardHeader)}
         </Typography>
+        {/* {!editing && (<Box sx={{ml:1,mt:.5}}>
+          <EditIcon sx={{fontSize:'20px', color:'#F7961C', cursor:'pointer'}} onClick={() => setModifyEmail(true)}/>
+        </Box>)} */}
       </Box>
 
       {active && (

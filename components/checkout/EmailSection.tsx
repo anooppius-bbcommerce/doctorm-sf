@@ -40,6 +40,8 @@ import FormLabel from "@mui/material/FormLabel";
 import Checkbox from "@mui/material/Checkbox";
 import LockIcon from "@mui/icons-material/Lock";
 import LooksOneIcon from "@mui/icons-material/LooksOne";
+import {textBoxStyler} from "../../lib/styles/commonStyles";
+import EditIcon from '@mui/icons-material/Edit';
 
 export interface EmailSectionProps {
   checkout: CheckoutDetailsFragment;
@@ -102,13 +104,16 @@ export function EmailSection({ checkout, locale }: EmailSectionProps) {
         <Typography sx={checkoutSectionHeaderActive}>
           {t.formatMessage(messages.emailAddressCardHeader)}
         </Typography>
+        {!modifyEmail && (<Box sx={{ml:1,mt:.5}}>
+          <EditIcon sx={{fontSize:'20px', color:'#F7961C', cursor:'pointer'}} onClick={() => setModifyEmail(true)}/>
+        </Box>)}
       </Box>
       <Box>
         <Card sx={{ p: 2 }}>
           {!modifyEmail ? (
             <Box className="flex justify-between items-center">
               <p className="text-base">{checkout?.email}</p>
-              <Button
+              {/* <Button
                 variant="contained"
                 onClick={() => setModifyEmail(true)}
                 style={{
@@ -120,11 +125,12 @@ export function EmailSection({ checkout, locale }: EmailSectionProps) {
                 }}
               >
                 {t.formatMessage(messages.changeButton)}
-              </Button>
+              </Button> */}
             </Box>
-          ) : (
+          ) : 
+          (
             <form method="post" onSubmit={onEmailFormSubmit}>
-              <Box sx={{ mt: 2 }}>
+              <Box sx={textBoxStyler}>
                 <Box className="col-span-full">
                   <TextField
                     className="NestedChildSelector"
@@ -132,10 +138,12 @@ export function EmailSection({ checkout, locale }: EmailSectionProps) {
                     label={t.formatMessage(messages.email)}
                     required
                     variant="outlined"
+                    sx={{width:"100%"}}
                     {...register("email", {
                       required: true,
                       pattern: /^\S+@\S+$/i,
                     })}
+                    
                   />
                   <Typography sx={errorMessage}>
                     {errors.email?.message}
@@ -153,6 +161,7 @@ export function EmailSection({ checkout, locale }: EmailSectionProps) {
                       borderRadius: "5px",
                       textDecoration: "none",
                     }}
+                    sx={{width:'100%'}}
                   >
                     {t.formatMessage(messages.saveButton)}
                   </Button>

@@ -139,7 +139,7 @@ export function AddressForm({
           </Box>
         </Box>
 
-        <Box sx={{ mt: 1 }}>
+        <Box  sx={{width:'223px',mt:2}}>
           {/* <label htmlFor="province" className="block text-sm font-medium text-gray-700">
             {t.formatMessage(messages.lastNameField)}
           </label> */}
@@ -154,6 +154,7 @@ export function AddressForm({
               {...registerAddress("lastName", {
                 required: true,
               })}
+              sx={{width:'100%'}}
             />
             {!!errorsAddress.lastName && (
               <p>{errorsAddress.lastName.message}</p>
@@ -161,7 +162,7 @@ export function AddressForm({
           </Box>
         </Box>
 
-        <Box sx={{ mt: 1 }}>
+        <Box  sx={{width:'223px',mt:2}}>
           <Box>
             <TextField
               id="countryArea"
@@ -171,6 +172,7 @@ export function AddressForm({
               className="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-base"
               spellCheck={false}
               {...registerAddress("countryArea", { required: true })}
+              sx={{width:'100%'}}
             >
               {emirates.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
@@ -184,7 +186,7 @@ export function AddressForm({
           </Box>
         </Box>
 
-        <Box sx={{ mt: 2 }}>
+        <Box  sx={{width:'223px',mt:2}}>
           <Box className="mt-2">
             <TextField
               type="text"
@@ -196,6 +198,7 @@ export function AddressForm({
               {...registerAddress("streetAddress1", {
                 required: true,
               })}
+              sx={{width:'100%'}}
             />
             {!!errorsAddress.streetAddress1 && (
               <p>{errorsAddress.streetAddress1.message}</p>
@@ -203,7 +206,7 @@ export function AddressForm({
           </Box>
         </Box>
 
-        <Box className="col-span-full">
+        <Box  sx={{width:'223px',mt:2}}>
           {/* <label htmlFor="address" className="block text-sm font-medium text-gray-700">
             {t.formatMessage(messages.phoneField)}
           </label> */}
@@ -220,6 +223,7 @@ export function AddressForm({
                 pattern:
                   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i,
               })}
+              sx={{width:'223px'}}
             />
             {errorsAddress.phone && <p>{errorsAddress.phone.message}</p>}
           </Box>

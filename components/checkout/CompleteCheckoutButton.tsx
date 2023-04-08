@@ -18,13 +18,10 @@ export function CompleteCheckoutButton({
 }: CompleteCheckoutButtonProps) {
   return (
     <>
+    
       {isProcessing ? (
-        <button
-          type="button"
-          disabled
-          className="w-full mt-6 bg-green-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-base font-medium text-white flex items-center justify-center"
-        >
-          <svg
+        <Box>
+          {/* <svg
             xmlns="http://www.w3.org/2000/svg"
             className="animate-spin h-5 w-5"
             fill="none"
@@ -43,9 +40,21 @@ export function CompleteCheckoutButton({
               strokeWidth="2"
               d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
             />
+          </svg> */}
+          <svg style={{width:'70px', height:'70px'}} version="1.1" id="L9" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+            viewBox="0 0 100 100" enable-background="new 0 0 0 0">
+              <path fill="#ff9905" d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                <animateTransform 
+                  attributeName="transform" 
+                  attributeType="XML" 
+                  type="rotate"
+                  dur="1s" 
+                  from="0 50 50"
+                  to="360 50 50" 
+                  repeatCount="indefinite" />
+            </path>
           </svg>
-          Processing
-        </button>
+        </Box>
       ) : (
         <Button
           onClick={onClick}
@@ -58,6 +67,7 @@ export function CompleteCheckoutButton({
             borderRadius: "5px",
             textDecoration: "none",
           }}
+          sx={{mt:2}}
         >
           {children}
         </Button>

@@ -42,6 +42,8 @@ export function BannerCarousal({ data }) {
             style: {
               background: "#fff",
               color: "#F7961C",
+              width:'60px',
+              height:'60px',
             },
           }}
           navButtonsAlwaysVisible={true}

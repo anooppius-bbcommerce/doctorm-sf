@@ -26,6 +26,7 @@ const searchListWrapper = {
 };
 const searchList = {
   background: "#f3f3f3",
+  borderRadius: '5px',
   "& input": {
     padding: "5px",
     borderRadius: "5px",
@@ -48,9 +49,13 @@ const searchList = {
   "& ul": {
     padding: 0,
     margin: 0,
-    display: "flex",
-    flexWrap: "wrap",
-    margin: "10px 30px 10px 30px",
+    // display: "flex",
+    // flexWrap: "wrap",
+    margin: "0",
+    position:'absolute',
+    zIndex:'999',
+    background:'#fff',
+    borderRadius:'5px',
     "& searchBox": {
       background: "#F7961C !important",
     },
@@ -62,9 +67,9 @@ const searchList = {
       border: "1px solid #ddd",
       borderRadius: "5px",
       background: "#fff",
-      textAlign: "center",
+      textAlign: "left",
       cursor: "pointer",
-      fontSize: "20px",
+      fontSize: "15px",
       fontFamily: "sans-serif",
       "&:hover": {
         border: "1px solid #F7961C",
@@ -72,14 +77,16 @@ const searchList = {
       "& a": {
         display: "block",
         textDecoration: "none",
-
+        display:'flex',
         color: "343434",
         "& img": {
           display: "block",
+          width: '39px',
+          height: '20px',
         },
         "& span": {
           display: "flex",
-          justifyContent: "center",
+          justifyContent: "start",
           wordWrap: "break-word",
           width: "200px",
           border: "0px solid",
@@ -88,8 +95,17 @@ const searchList = {
           overflow: "hidden",
           padding: "5px",
           color: "#343434",
-          fontSize: "20px",
+          fontSize: "15px",
         },
+        "& span:nth-of-type(1)": {
+          width: '100px !important',
+          border:'0px solid #000',
+          height: '15px',
+          width: '44px'
+        },
+        "& span:nth-of-type(3)": {
+          width: '80px'
+        }
       },
     },
   },
@@ -105,7 +121,7 @@ const searchClient = {
   },
 };
 
-function HitComponent({ Hit, handleSearchClose, locale }: HitProps) {
+function HitComponent({ Hit, locale }: HitProps) {
   const { hit } = Hit;
   return (
     <>
@@ -114,59 +130,46 @@ function HitComponent({ Hit, handleSearchClose, locale }: HitProps) {
           href={"/" + locale + "/products/" + hit.slug}
           passHref
           className={roboto.className}
-          onClick={handleSearchClose}
         >
           <span>
             <img src={hit.thumbnail} width="100" height="50"></img>
           </span>
           <span>{hit.productName}</span>
+          <span className="Hit-price">${hit.grossPrice}</span>
           {/* <span>
           {hit.grossPrice}
         </span> */}
           {/* <Highlight hit={hit} attribute="name" /> */}
         </Link>
-        <span className="Hit-price">${hit.grossPrice}</span>
+        
       </Box>
     </>
   );
 }
 
-export default function Search({ handleSearchClose, locale }) {
+export default function Search({ hello, handleSearchClose, locale, searchActive, handleSearchClick }) {
   return (
-    <Box sx={searchListWrapper} className="google">
+    <Box sx={searchList}>
       <InstantSearch
         indexName={algoliaIndexName}
         searchClient={searchClient}
       >
-        <Box className="right-panel" sx={searchList}>
+        <Box className="right-panel" >
           <Box
-            sx={{
-              background: "#F7961C",
-              pl: 6,
-              pr: 5,
-              pt: 5,
-              pb: 5,
-              display: "flex",
-            }}
           >
-            <Box>
-              <SearchIcon sx={{ color: "#343434" }} />
-            </Box>
-            <Box sx={{ ml: 3, width: "100%" }}>
+            <Box sx={{ width: "100%" }}>
               <SearchBox
-                showLoadingIndicator={false}
-                placeholder="text"
-                defaultRefinement=""
-                autoFocus={true}
+                onFocus={()=>handleSearchClick()}
+                onBlur={()=>handleSearchClose()}
               />
             </Box>
           </Box>
           <Box>
-            <Hits
+            {searchActive ? <Hits
               hitComponent={(Hit) => (
-                <HitComponent Hit={Hit} handleSearchClose={handleSearchClose} locale={locale} />
+                <HitComponent Hit={Hit} locale={locale} />
               )}
-            />
+            />:null}
           </Box>
         </Box>
       </InstantSearch>

@@ -72,9 +72,11 @@ const HeaderItemWrapper = {
   justifyContent: "space-between",
   alignItems: "center",
   border: "0px solid",
-  width: "14%",
+  width: "24%",
 };
-
+const HeaderAlignLogo = {
+  justifyContent: "center",
+}
 const HeaderLogo = {
   width: "30%",
 };
@@ -159,7 +161,9 @@ export function Navbar(props) {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  const hello = () => {
+    console.log('true')
+  }
   const handleSearchClick = () => {
     setSearchActive(true);
   };
@@ -232,7 +236,7 @@ export function Navbar(props) {
                 <Box>Find a Store</Box>
               </Box>
               <Box sx={{ cursor: "pointer" }}>
-                {!searchActive && (
+                {/* {!searchActive && (
                   <>
                     <Box sx={HeaderItemInnerWrapper}>
                       <SearchOutlinedIcon
@@ -242,20 +246,27 @@ export function Navbar(props) {
                     </Box>
                     <Box onClick={handleSearchClick}>Search</Box>
                   </>
-                )}
+                )} */}
+                <Search
+                handleSearchClose={handleSearchClose}
+                locale={currentLocale}
+                searchActive={searchActive}
+                handleSearchClick={handleSearchClick}
+                hello = {hello}
+              />
 
-                {searchActive && (
+                {/* {searchActive && (
                   <Box sx={HeaderItemInnerWrapper}>
                     <CloseIcon
                       sx={{ color: "#3A3A3A", fontSize: "26px", width: "53px" }}
                       onClick={handleSearchClose}
                     />
                   </Box>
-                )}
+                )} */}
               </Box>
             </Box>
 
-            <Box sx={HeaderItemWrapper}>
+            <Box sx={[HeaderItemWrapper,HeaderAlignLogo]}>
               <Link href={`/`}>
                 <img
                   style={{ width: "100%" }}
@@ -268,7 +279,7 @@ export function Navbar(props) {
                 <Box>
                   <AccountCircleRoundedIcon sx={iconSize} />
                 </Box>
-                <Box sx={{ fontWeight: "bold",pl:1 }}>drm</Box>
+                <Box sx={{ fontWeight: "bold",pl:1 }}>Vinod</Box>
               </Box>
               <Box>
                 <Box sx={HeaderItemInnerWrapper}>
@@ -347,7 +358,7 @@ export function Navbar(props) {
           </Toolbar>
         </Grid>
 
-        {searchActive && (
+        {/* {searchActive && (
           <Grid item xs={12} sx={searchWrapper}>
             <Box>
               <Search
@@ -356,7 +367,7 @@ export function Navbar(props) {
               />
             </Box>
           </Grid>
-        )}
+        )} */}
       </Grid>
     </AppBar>
   );

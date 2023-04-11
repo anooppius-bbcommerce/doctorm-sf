@@ -374,8 +374,8 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
                 width="100%"
                 swipe="true"
                 duration="100"
-                PrevIcon={<ArrowBackIosNewIcon />}
-                NextIcon={<ArrowForwardIosIcon />}
+                PrevIcon={<ArrowBackIosNewIcon sx={{fontSize:'50px'}}/>}
+                NextIcon={<ArrowForwardIosIcon sx={{fontSize:'50px'}}/>}
                 navButtonsProps={{
                   // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
                   style: {

@@ -54,7 +54,15 @@ const pdpDetailsContent = {
 };
 
 const pdpDetailsFeatureContent = {
-  fontSize: "20px",
+  fontSize: "20px", 
+  border:"0px solid #000",
+  '& ul':{
+    margin:0,
+    padding:'20px',
+  },
+  '& li':{
+    padding:"10px 0",
+  }
 };
 
 function PdpDetail({ pdpDetails, productFeature }) {
@@ -71,7 +79,7 @@ function PdpDetail({ pdpDetails, productFeature }) {
   };
   return (
     <Grid container xs={12} className={roboto.className}>
-      <Box sx={{ background: "#F1ECE1", width: "100%", m: 4 }}>
+      <Box sx={{ background: "#F1ECE1", width: "100%", m: 4, border:'0px solid #000', minHeight:'560px' }}>
         <Box sx={{ display: "flex", flexDirection: "row", p: 4 }}>
           <Box sx={{ width: "40%" }}>
             <Box

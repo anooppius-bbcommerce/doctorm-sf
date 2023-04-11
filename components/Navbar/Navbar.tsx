@@ -74,6 +74,9 @@ const HeaderItemWrapper = {
   border: "0px solid",
   width: "24%",
 };
+const HeaderItemWrapperSearch = {
+  width:"374px"
+}
 const HeaderAlignLogo = {
   justifyContent: "center",
 }
@@ -228,14 +231,14 @@ export function Navbar(props) {
             }}
             className={roboto.className}
           >
-            <Box sx={HeaderItemWrapper}>
-              <Box>
+            <Box sx={[HeaderItemWrapper,HeaderItemWrapperSearch]}>
+              {/* <Box>
                 <Box sx={HeaderItemInnerWrapper}>
                   <LocationOnOutlinedIcon sx={iconColor} />
                 </Box>
                 <Box>Find a Store</Box>
-              </Box>
-              <Box sx={{ cursor: "pointer" }}>
+              </Box> */}
+              <Box sx={{width:'100%'}}>
                 {/* {!searchActive && (
                   <>
                     <Box sx={HeaderItemInnerWrapper}>

@@ -25,7 +25,7 @@ const searchListWrapper = {
 };
 const searchList = {
   background: "#f3f3f3",
-  borderRadius: "5px",
+  borderRadius: "0px",
   "& input": {
     padding: "5px",
     borderRadius: "5px",
@@ -54,24 +54,25 @@ const searchList = {
     position: "absolute",
     zIndex: "999",
     background: "#fff",
-    borderRadius: "5px",
+    borderRadius: "0px",
     "& searchBox": {
       background: "#F7961C !important",
     },
     "& li": {
       listStyleType: "none",
-      margin: "5px",
+      margin: "0px",
       wordWrap: "break-word",
       padding: "5px",
-      border: "1px solid #ddd",
-      borderRadius: "5px",
+      border: "0px solid #ddd",
+      borderRadius: "0px",
       background: "#fff",
       textAlign: "left",
       cursor: "pointer",
       fontSize: "15px",
       fontFamily: "sans-serif",
       "&:hover": {
-        border: "1px solid #F7961C",
+       // border: "1px solid #F7961C",
+       background:'#fbfbfb',
       },
       "& a": {
         display: "block",
@@ -80,8 +81,9 @@ const searchList = {
         color: "343434",
         "& img": {
           display: "block",
-          width: "39px",
-          height: "20px",
+          width: "60px",
+          height: "35px",
+          marginTop: "-10px",
         },
         "& span": {
           display: "flex",
@@ -97,10 +99,12 @@ const searchList = {
           fontSize: "15px",
         },
         "& span:nth-of-type(1)": {
-          width: "100px !important",
           border: "0px solid #000",
-          height: "15px",
-          width: "44px",
+          height: "27px",
+          width: "54px",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
         },
         "& span:nth-of-type(3)": {
           width: "80px",
@@ -137,7 +141,7 @@ function HitComponent({
   return (
     <>
       <Box
-        sx={{ background: "#fff" }}
+        sx={{}}
         onMouseDown={() => checkClickType(handleSearchClick)}
       >
         <Link
@@ -170,8 +174,8 @@ export default function Search({
   const { currentChannel, formatPrice, query } = useRegions();
   return (
     <Box sx={searchList}>
-      <InstantSearch indexName={algoliaIndexName} searchClient={searchClient}>
-        <Box className="right-panel">
+      <InstantSearch indexName={algoliaIndexName} searchClient={searchClient} style={{width:'100%'}}>
+        <Box className="right-panel" sx={{ width: "100%" }}>
           <Box>
             <Box sx={{ width: "100%" }}>
               <SearchBox

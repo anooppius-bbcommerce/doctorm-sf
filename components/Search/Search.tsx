@@ -1,5 +1,6 @@
 // @ts-nocheck
 import algoliasearch from "algoliasearch/lite";
+import React from "react";
 import {
   InstantSearch,
   Hits, SearchBox
@@ -9,6 +10,7 @@ import { Box } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { Roboto } from "@next/font/google";
 import config from "../../config";
+import { useRegions } from "@/components/RegionsProvider";
 
 const { algoliaIndexName, algoliaProjectId, algoliaReadKey } = config;
 
@@ -121,21 +123,29 @@ const searchClient = {
   },
 };
 
-function HitComponent({ Hit, locale }: HitProps) {
+const checkClickType = (type) => {
+  const timer = setTimeout(() => {
+    type();
+  }, 300);
+  return () => clearTimeout(timer);
+}
+
+function HitComponent({ Hit, locale, formatPrice, handleSearchClick }: HitProps) {
   const { hit } = Hit;
   return (
     <>
-      <Box sx={{ background: "#fff" }}>
+      <Box sx={{ background: "#fff" }} onMouseDown={()=>checkClickType(handleSearchClick)}>
         <Link
           href={"/" + locale + "/products/" + hit.slug}
           passHref
           className={roboto.className}
+          
         >
           <span>
             <img src={hit.thumbnail} width="100" height="50"></img>
           </span>
           <span>{hit.productName}</span>
-          <span className="Hit-price">${hit.grossPrice}</span>
+          <span className="Hit-price">AED{hit.grossPrice}</span>
           {/* <span>
           {hit.grossPrice}
         </span> */}
@@ -148,6 +158,7 @@ function HitComponent({ Hit, locale }: HitProps) {
 }
 
 export default function Search({ hello, handleSearchClose, locale, searchActive, handleSearchClick }) {
+  const { currentChannel, formatPrice, query } = useRegions();
   return (
     <Box sx={searchList}>
       <InstantSearch
@@ -160,14 +171,14 @@ export default function Search({ hello, handleSearchClose, locale, searchActive,
             <Box sx={{ width: "100%" }}>
               <SearchBox
                 onFocus={()=>handleSearchClick()}
-                onBlur={()=>handleSearchClose()}
+                onBlur={()=>checkClickType(handleSearchClose)}
               />
             </Box>
           </Box>
           <Box>
             {searchActive ? <Hits
               hitComponent={(Hit) => (
-                <HitComponent Hit={Hit} locale={locale} />
+                <HitComponent Hit={Hit} handleSearchClick={handleSearchClick} formatPrice={formatPrice} locale={locale} />
               )}
             />:null}
           </Box>

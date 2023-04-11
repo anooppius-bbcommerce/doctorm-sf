@@ -23,7 +23,11 @@ import { contextToRegionQuery } from "@/lib/regions";
 import { Roboto } from "@next/font/google";
 import imageUrlBuilder from "@sanity/image-url";
 import client from "@/lib/sanity/client";
-import { PDP_PAGE_SANITY_QUERY, HEADER_PAGE_SANITY_QUERY } from "@/lib/const";
+import {
+  PDP_PAGE_SANITY_QUERY,
+  HEADER_PAGE_SANITY_QUERY,
+  PDP_PAGE_LAYOUT_SANITY_QUERY,
+} from "@/lib/const";
 import { Box, Grid, Button } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import BreadcrumbsDetails from "../../../components/breadcrumbs";
@@ -54,6 +58,13 @@ import {
   getProductDetails,
   getProductFeatures,
 } from "@/lib/transformer/productDetailPage";
+import TopProducts from "@/components/HomepageBlock/TopProducts";
+import TopBrands from "@/components/HomepageBlock/TopBrands";
+import TopCategories from "@/components/HomepageBlock/TopCategories";
+import BannerImage from "@/components/HomepageBlock/BannerImage";
+import ImageWithTextGrid from "@/components/HomepageBlock/ImageWithTextGrid";
+import ImageWithText from "@/components/HomepageBlock/ImageWithText";
+import BannerCarousal from "@/components/HomepageBlock/BannerCarousal";
 
 export type OptionalQuery = {
   variant?: string;
@@ -157,11 +168,16 @@ const powerLists = [
   "-4.75",
 ];
 
-function ProductDetails({ pdpLayout, product }) {
+function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
   const router = useRouter();
   const paths = usePaths();
   const t = useIntl();
-  const { currentChannel, formatPrice, query } = useRegions();
+  const {
+    currentChannel,
+    formatPrice,
+    query,
+    currentLocale: locale,
+  } = useRegions();
 
   const { checkoutToken, setCheckoutToken, checkout } = useCheckout();
 
@@ -223,12 +239,18 @@ function ProductDetails({ pdpLayout, product }) {
     allImages: [],
   });
 
+  const {
+    seoDetails: { title },
+    translations: { contents },
+  } = pdpDefinedPageContent || { seoDetails: {}, translations: {} };
+
   let productVariant = variants.map((variant) => Object.assign({}, variant));
 
   productVariant.forEach((variant) => {
     const frameColorAttribute = variant?.attributes.filter(
       (attribute) => attribute.attribute.name === "Frame Color"
     );
+
     if (frameColorAttribute) {
       let index = frameCode?.findIndex(
         (code) => code === frameColorAttribute[0]?.values[0]?.name.toLowerCase()
@@ -636,6 +658,67 @@ function ProductDetails({ pdpLayout, product }) {
           <PdpDetail pdpDetails={pdpDetails} productFeature={productFeature} />
         </Grid>
       </Grid>
+
+      <Grid item xs={12}>
+        <Box>
+          {contents &&
+            Array.isArray(contents) &&
+            contents.map((content) => {
+              if (content._type == "bannerCarousal") {
+                return (
+                  <BannerCarousal
+                    key={content._key}
+                    data={content}
+                  ></BannerCarousal>
+                );
+              }
+              if (content._type == "imageWithText") {
+                return (
+                  <ImageWithText
+                    key={content._key}
+                    data={content}
+                  ></ImageWithText>
+                );
+              }
+              if (content._type == "imageWithTextGrid") {
+                return (
+                  <ImageWithTextGrid
+                    key={content._key}
+                    data={content}
+                  ></ImageWithTextGrid>
+                );
+              }
+              if (content._type == "catalogueBanner") {
+                return (
+                  <BannerImage key={content._key} data={content}></BannerImage>
+                );
+              }
+              if (content._type == "topProducts") {
+                return (
+                  <TopProducts
+                    key={content._key}
+                    data={content}
+                    locale={locale}
+                  ></TopProducts>
+                );
+              }
+              if (content._type == "topBrands") {
+                return (
+                  <TopBrands key={content._key} data={content}></TopBrands>
+                );
+              }
+              if (content._type == "topCategories") {
+                return (
+                  <TopCategories
+                    key={content._key}
+                    data={content}
+                  ></TopCategories>
+                );
+              }
+              return "";
+            })}
+        </Box>
+      </Grid>
       {zoomModalDetails.display && (
         <ZoomModal
           zoomModalDetails={zoomModalDetails}
@@ -696,13 +779,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
   const marketingContent = await client.fetch(HEADER_PAGE_SANITY_QUERY);
-  console.log(product);
+  const pdpDefinedPageContent = await client.fetch(
+    PDP_PAGE_LAYOUT_SANITY_QUERY
+  );
+
   return {
     props: {
       rootCategories: rootCategories,
       pdpLayout: pdpLayout,
       product: product,
       uspContent: marketingContent,
+      pdpDefinedPageContent: pdpDefinedPageContent,
     },
   };
 };

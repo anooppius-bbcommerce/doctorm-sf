@@ -17,6 +17,17 @@ export const HOME_PAGE_SANITY_QUERY = groq`*[_type == "definedPage" && pageType 
   translations
 }`;
 
+export const PDP_PAGE_LAYOUT_SANITY_QUERY = groq`*[_type == "definedPage" && pageType == "pdp"][0]{
+  _id,
+  _type,
+  pageType,
+  seoDetails{
+    title
+  },
+  title,
+  translations
+}`;
+
 export const HEADER_PAGE_SANITY_QUERY = groq`*[_type == "header"]{
   content,
 }`;

@@ -1,10 +1,7 @@
 // @ts-nocheck
 import algoliasearch from "algoliasearch/lite";
 import React from "react";
-import {
-  InstantSearch,
-  Hits, SearchBox
-} from "react-instantsearch-dom";
+import { InstantSearch, Hits, SearchBox } from "react-instantsearch-dom";
 import Link from "next/link";
 import { Box } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -28,7 +25,7 @@ const searchListWrapper = {
 };
 const searchList = {
   background: "#f3f3f3",
-  borderRadius: '5px',
+  borderRadius: "5px",
   "& input": {
     padding: "5px",
     borderRadius: "5px",
@@ -54,10 +51,10 @@ const searchList = {
     // display: "flex",
     // flexWrap: "wrap",
     margin: "0",
-    position:'absolute',
-    zIndex:'999',
-    background:'#fff',
-    borderRadius:'5px',
+    position: "absolute",
+    zIndex: "999",
+    background: "#fff",
+    borderRadius: "5px",
     "& searchBox": {
       background: "#F7961C !important",
     },
@@ -79,12 +76,12 @@ const searchList = {
       "& a": {
         display: "block",
         textDecoration: "none",
-        display:'flex',
+        display: "flex",
         color: "343434",
         "& img": {
           display: "block",
-          width: '39px',
-          height: '20px',
+          width: "39px",
+          height: "20px",
         },
         "& span": {
           display: "flex",
@@ -100,14 +97,14 @@ const searchList = {
           fontSize: "15px",
         },
         "& span:nth-of-type(1)": {
-          width: '100px !important',
-          border:'0px solid #000',
-          height: '15px',
-          width: '44px'
+          width: "100px !important",
+          border: "0px solid #000",
+          height: "15px",
+          width: "44px",
         },
         "& span:nth-of-type(3)": {
-          width: '80px'
-        }
+          width: "80px",
+        },
       },
     },
   },
@@ -128,59 +125,74 @@ const checkClickType = (type) => {
     type();
   }, 300);
   return () => clearTimeout(timer);
-}
+};
 
-function HitComponent({ Hit, locale, formatPrice, handleSearchClick }: HitProps) {
+function HitComponent({
+  Hit,
+  locale,
+  formatPrice,
+  handleSearchClick,
+}: HitProps) {
   const { hit } = Hit;
   return (
     <>
-      <Box sx={{ background: "#fff" }} onMouseDown={()=>checkClickType(handleSearchClick)}>
+      <Box
+        sx={{ background: "#fff" }}
+        onMouseDown={() => checkClickType(handleSearchClick)}
+      >
         <Link
           href={"/" + locale + "/products/" + hit.slug}
           passHref
           className={roboto.className}
-          
         >
           <span>
             <img src={hit.thumbnail} width="100" height="50"></img>
           </span>
           <span>{hit.productName}</span>
-          <span className="Hit-price">AED{hit.grossPrice}</span>
+          <span className="Hit-price">AED {hit.grossPrice}</span>
           {/* <span>
           {hit.grossPrice}
         </span> */}
           {/* <Highlight hit={hit} attribute="name" /> */}
         </Link>
-        
       </Box>
     </>
   );
 }
 
-export default function Search({ hello, handleSearchClose, locale, searchActive, handleSearchClick }) {
+export default function Search({
+  hello,
+  handleSearchClose,
+  locale,
+  searchActive,
+  handleSearchClick,
+}) {
   const { currentChannel, formatPrice, query } = useRegions();
   return (
     <Box sx={searchList}>
-      <InstantSearch
-        indexName={algoliaIndexName}
-        searchClient={searchClient}
-      >
-        <Box className="right-panel" >
-          <Box
-          >
+      <InstantSearch indexName={algoliaIndexName} searchClient={searchClient}>
+        <Box className="right-panel">
+          <Box>
             <Box sx={{ width: "100%" }}>
               <SearchBox
-                onFocus={()=>handleSearchClick()}
-                onBlur={()=>checkClickType(handleSearchClose)}
+                onFocus={() => handleSearchClick()}
+                onBlur={() => checkClickType(handleSearchClose)}
               />
             </Box>
           </Box>
           <Box>
-            {searchActive ? <Hits
-              hitComponent={(Hit) => (
-                <HitComponent Hit={Hit} handleSearchClick={handleSearchClick} formatPrice={formatPrice} locale={locale} />
-              )}
-            />:null}
+            {searchActive ? (
+              <Hits
+                hitComponent={(Hit) => (
+                  <HitComponent
+                    Hit={Hit}
+                    handleSearchClick={handleSearchClick}
+                    formatPrice={formatPrice}
+                    locale={locale}
+                  />
+                )}
+              />
+            ) : null}
           </Box>
         </Box>
       </InstantSearch>

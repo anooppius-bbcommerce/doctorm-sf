@@ -77,7 +77,6 @@ function CartDetails(props) {
   const { currentChannel, formatPrice, query } = useRegions();
   const [updateProductToCheckout] = useCheckoutLineUpdateMutation();
   const [removeProductFromCheckout] = useRemoveProductFromCheckoutMutation();
-  console.log(checkout);
 
   const updateItemQuantity = (id, quantity) => async (e) => {
     const result = await updateProductToCheckout({

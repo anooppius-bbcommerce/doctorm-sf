@@ -58,7 +58,7 @@ export function VariantSelector({
   }, [selectedVariant]);
 
   // Skip displaying selector when theres less than 2 variants
-  if (!variants || variants.length === 1) {
+  if (!variants || variants.length === 0) {
     return null;
   }
 
@@ -79,14 +79,14 @@ export function VariantSelector({
   return (
     <div className="w-full">
       <RadioGroup value={selectedVariant} onChange={onChange}>
-        <div className="space-y-4" style={{display:'flex', }}>
-          {variants.map((variant, index) => (
-            <RadioGroup.Option key={variant.id} value={variant.id}>
-              <div style={{display:'flex',}}>
+        <div className="space-y-4" style={{ display: "flex" }}>
+          {variants.map((variantObject, index) => (
+            <RadioGroup.Option key={variantObject.id} value={variantObject.id}>
+              <div style={{ display: "flex" }}>
                 <RadioGroup.Label>
-                  <Box key={index} sx={{ mr: 2, cursor:'pointer' }}>
+                  <Box key={index} sx={{ mr: 2, cursor: "pointer" }}>
                     <PortableText
-                      value={variant.frameImage}
+                      value={variantObject.frameImage}
                       components={ptComponents}
                     />
                   </Box>

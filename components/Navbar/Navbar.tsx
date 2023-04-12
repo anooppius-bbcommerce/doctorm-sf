@@ -75,7 +75,7 @@ const HeaderItemWrapper = {
   width: "24%",
 };
 const HeaderItemWrapperSearch = {
-  width:"374px"
+  width:"377px"
 }
 const HeaderAlignLogo = {
   justifyContent: "center",

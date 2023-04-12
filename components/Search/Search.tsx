@@ -1,7 +1,7 @@
 // @ts-nocheck
 import algoliasearch from "algoliasearch/lite";
 import React from "react";
-import { InstantSearch, Hits, SearchBox } from "react-instantsearch-dom";
+import { InstantSearch, Hits, SearchBox, Highlight  } from "react-instantsearch-dom";
 import Link from "next/link";
 import { Box } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -26,6 +26,7 @@ const searchListWrapper = {
 const searchList = {
   background: "#f3f3f3",
   borderRadius: "0px",
+  border: "1px solid #ddd",
   "& input": {
     padding: "5px",
     borderRadius: "5px",
@@ -52,9 +53,11 @@ const searchList = {
     // flexWrap: "wrap",
     margin: "0",
     position: "absolute",
+    marginTop:'2px',
     zIndex: "999",
     background: "#fff",
     borderRadius: "0px",
+    border:'1px solid #ddd',
     "& searchBox": {
       background: "#F7961C !important",
     },
@@ -106,6 +109,10 @@ const searchList = {
           justifyContent: 'center',
           alignItems: 'center'
         },
+        "& span:nth-of-type(2)": {
+          display:'flex',
+          justifyContent:'flext-start',
+        },
         "& span:nth-of-type(3)": {
           width: "80px",
         },
@@ -153,6 +160,7 @@ function HitComponent({
             <img src={hit.thumbnail} width="100" height="50"></img>
           </span>
           <span>{hit.productName}</span>
+          {/* <Highlight attribute={hit.productName} hit={hit.productName} tagName={hit.productName} /> */}
           <span className="Hit-price">AED {hit.grossPrice}</span>
           {/* <span>
           {hit.grossPrice}
@@ -179,6 +187,7 @@ export default function Search({
           <Box>
             <Box sx={{ width: "100%" }}>
               <SearchBox
+                translations={{ placeholder: "Search for products" }}
                 onFocus={() => handleSearchClick()}
                 onBlur={() => checkClickType(handleSearchClose)}
               />

@@ -313,7 +313,7 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
       // If checkout is already existing, add products
       const { data: addToCartData } = await addProductToCheckout({
         variables: {
-          email: user?.email || "drm_poc_test@bigbangcommerce.com",
+          email: user?.email || "vinod.kumar@bigbangcommerce.com",
           checkoutToken,
           variantId: selectedVariantID,
           locale: query.locale,
@@ -328,7 +328,7 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
       // Theres no checkout, we have to create one
       const { data: createCheckoutData } = await createCheckout({
         variables: {
-          email: user?.email || "drm_poc_test@bigbangcommerce.com",
+          email: user?.email || "vinod.kumar@bigbangcommerce.com",
           channel: currentChannel.slug || "default-channel",
           lines: [
             {

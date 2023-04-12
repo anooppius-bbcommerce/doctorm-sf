@@ -136,7 +136,7 @@ function ZoomModal({ setZoomModalDetails, zoomModalDetails }) {
             </Box>
             <Box>
               {/* <PortableText value={displayImage} components={ptComponents} /> */}
-              <img src={displayImage}/>
+              <img src={displayImage} width="800px" height="443px"/>
             </Box>
             <Box>
               <KeyboardArrowRightIcon

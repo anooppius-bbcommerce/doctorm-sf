@@ -22,6 +22,10 @@ const searchListWrapper = {
   position: "absolute",
   zIndex: "999",
   width: "100%",
+  marginTop:'2px',
+  background: "#fff",
+  width:'374px',
+  border:'1px solid #ddd',
 };
 const searchList = {
   background: "#f3f3f3",
@@ -52,12 +56,12 @@ const searchList = {
     // display: "flex",
     // flexWrap: "wrap",
     margin: "0",
-    position: "absolute",
-    marginTop:'2px',
+    //position: "absolute",
+    //marginTop:'2px',
     zIndex: "999",
     background: "#fff",
     borderRadius: "0px",
-    border:'1px solid #ddd',
+    //border:'1px solid #ddd',
     "& searchBox": {
       background: "#F7961C !important",
     },
@@ -84,8 +88,8 @@ const searchList = {
         color: "343434",
         "& img": {
           display: "block",
-          width: "60px",
-          height: "35px",
+          width: "68px",
+          height: "40px",
           marginTop: "-10px",
         },
         "& span": {
@@ -103,18 +107,34 @@ const searchList = {
         },
         "& span:nth-of-type(1)": {
           border: "0px solid #000",
-          height: "27px",
-          width: "54px",
+          //height: "27px",
+          width: "55px",
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center'
         },
-        "& span:nth-of-type(2)": {
+        // "& span:nth-of-type(2)": {
+        //   display:'flex',
+        //   justifyContent:'flext-start',
+        // },
+        "& span span": {
+          paddingLeft:'0px',
+          width:'auto',
           display:'flex',
-          justifyContent:'flext-start',
+          justifyContent:'flex-start',
+          border:'0px solid #000'
+        },
+        "& span span:nth-of-type(1)": {
+          paddingLeft:'0px',
+          width:'auto',
+          display:'flex',
+          justifyContent:'flex-start',
+          border:'0px solid #000'
         },
         "& span:nth-of-type(3)": {
-          width: "80px",
+          width: "79px",
+          display: 'flex',
+          justifyContent: 'flex-end'
         },
       },
     },
@@ -145,6 +165,12 @@ function HitComponent({
   handleSearchClick,
 }: HitProps) {
   const { hit } = Hit;
+
+  // React.useEffect(()=>{
+  //   if(hit._highlightResult.attributes.Brand.matchedWords.length === 0){
+  //     setIsSearchIsEmpty(true);
+  //   }
+  // },[hit])
   return (
     <>
       <Box
@@ -153,14 +179,14 @@ function HitComponent({
       >
         <Link
           href={"/" + locale + "/products/" + hit.slug}
-          passHref
+          
           className={roboto.className}
         >
           <span>
             <img src={hit.thumbnail} width="100" height="50"></img>
           </span>
-          <span>{hit.productName}</span>
-          {/* <Highlight attribute={hit.productName} hit={hit.productName} tagName={hit.productName} /> */}
+          {/* <span>{hit.productName}</span> */}
+          <Highlight attribute="productName" hit={hit} tagName="b" />
           <span className="Hit-price">AED {hit.grossPrice}</span>
           {/* <span>
           {hit.grossPrice}
@@ -173,13 +199,13 @@ function HitComponent({
 }
 
 export default function Search({
-  hello,
   handleSearchClose,
   locale,
   searchActive,
   handleSearchClick,
 }) {
   const { currentChannel, formatPrice, query } = useRegions();
+  const [isSearchIsEmpty, setIsSearchIsEmpty] = React.useState(false);
   return (
     <Box sx={searchList}>
       <InstantSearch indexName={algoliaIndexName} searchClient={searchClient} style={{width:'100%'}}>
@@ -188,13 +214,18 @@ export default function Search({
             <Box sx={{ width: "100%" }}>
               <SearchBox
                 translations={{ placeholder: "Search for products" }}
-                onFocus={() => handleSearchClick()}
+                onFocus={(e) => e.target.value !==""?handleSearchClick():null}
+                onChange={(e) => e.target.value !==""?handleSearchClick():checkClickType(handleSearchClose)}
                 onBlur={() => checkClickType(handleSearchClose)}
               />
             </Box>
           </Box>
           <Box>
             {searchActive ? (
+              <Box sx={searchListWrapper}>
+                {/* <Box sx={{padding:'5px 5px 5px 10px', fontSize:'14px',borderBottom:'1px solid #f3f3f3'}}>
+                  Products
+                </Box> */}
               <Hits
                 hitComponent={(Hit) => (
                   <HitComponent
@@ -202,9 +233,11 @@ export default function Search({
                     handleSearchClick={handleSearchClick}
                     formatPrice={formatPrice}
                     locale={locale}
+                    setIsSearchIsEmpty={setIsSearchIsEmpty}
                   />
                 )}
               />
+              </Box>
             ) : null}
           </Box>
         </Box>

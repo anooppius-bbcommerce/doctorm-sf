@@ -89,7 +89,7 @@ const space = {
 const tickColor = {
   color: "#F7961C",
 };
-const title = {
+const titleStyle = {
   fontSize: "28px",
 };
 const dis = {
@@ -453,7 +453,7 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
           </Grid>
           <Grid xs={5} sx={{ border: "0px solid" }}>
             <Box sx={productDis}>
-              <Box sx={title}>
+              <Box sx={titleStyle}>
                 <b>{productAttributesMap.get("Brand")}</b> {name}
               </Box>
               <Box sx={dis}>{productDescription}</Box>

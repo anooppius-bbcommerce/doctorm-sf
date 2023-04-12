@@ -36,7 +36,6 @@ export function BannerCarousal({ data }) {
     <Box sx={{border:'0px solid #000', }}>
       {contents && (
         <Carousel
-          animateOnRender={false}
           swipe={false}
           animation="slide"
           interval={4000}

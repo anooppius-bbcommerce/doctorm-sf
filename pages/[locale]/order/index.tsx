@@ -27,17 +27,21 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useRegions } from "@/components/RegionsProvider";
 import VerifiedIcon from '@mui/icons-material/Verified';
-
+import Head from 'next/head'
 function OrderConfirmation({orderDetails}) {
   console.log(orderDetails, "orderDetails")
   const paths = usePaths();
   const { currentChannel, formatPrice, query } = useRegions();
   return (
+    <>
+    <Head>
+        <title>Eyewear For Every Lifestyle | Glasses & Lenses | Doctor M</title>
+      </Head>
     <Grid sx={{  border:'0px solid #f6f6f6', }}>
       <Grid container xs={12}>
         <Box  sx={{ m: 5,  width:'100%', display:'flex', justifyContent:'center', fontSize:'4.5rem' }}>
           <Box>
-            <Box sx={{textAlign:'center'}}><VerifiedIcon sx={{color:'#F7961C'}}/></Box>
+            <Box sx={{textAlign:'center'}}><VerifiedIcon sx={{color:'#F7961C', fontSize:'70px'}}/></Box>
             <Box sx={{textAlign:'center'}}>
               <Typography sx={{color:'#F7961C', fontSize:'26px'}}>
                 Congratulations
@@ -164,6 +168,7 @@ function OrderConfirmation({orderDetails}) {
       </Box>
     </Grid>
     </Grid>
+    </>
   )
 }
 

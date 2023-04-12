@@ -212,14 +212,14 @@ export default function Search({
         <Box className="right-panel" sx={{ width: "100%" }}>
           <Box>
             <Box sx={{ width: "100%", display:'flex',  }}>
-              <Box sx={{width:'22px', display:'flex', alignItems:'center'}}><SearchIcon sx={{color:'#a5a5a5'}}/></Box>
+              <Box sx={{width:'22px', display:'flex', alignItems:'center', padding:'0px 5px'}}><SearchIcon sx={{color:'#a5a5a5'}}/></Box>
               <Box sx={{width:'100%'}}>
                 <SearchBox
                   translations={{ placeholder: "Search for products" }}
                   onFocus={(e) => e.target.value !==""?handleSearchClick():null}
                   onChange={(e) => e.target.value !==""?handleSearchClick():checkClickType(handleSearchClose)}
                   onBlur={() => checkClickType(handleSearchClose)}
-                  
+                  value="test"
                 />
               </Box>
             </Box>

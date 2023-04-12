@@ -16,6 +16,7 @@ import CheckoutSidebar from "@/components/checkout/sidebar/CheckoutSidebar";
 import { useRegions } from "@/components/RegionsProvider";
 import { Box, Grid } from "@mui/material";
 import CheckoutLayout from "@/components/CheckoutLayout/Layout";
+import Head from 'next/head'
 
 function CheckoutPage() {
   const router = useRouter();
@@ -46,6 +47,10 @@ function CheckoutPage() {
   }
 
   return (
+    <>
+    <Head>
+        <title>Eyewear For Every Lifestyle | Glasses & Lenses | Doctor M</title>
+      </Head>
     <Grid item sx={{ border: "0px solid #f6f6f6", color: "#343434" }}>
       <Grid item xs={12}>
         <Grid item xs={8} sx={{ border: "0px solid" }}>
@@ -60,6 +65,7 @@ function CheckoutPage() {
         </Grid>
       </Grid>
     </Grid>
+    </>
   );
 }
 

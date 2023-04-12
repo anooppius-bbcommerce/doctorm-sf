@@ -49,6 +49,7 @@ import { useCheckout } from "@/lib/providers/CheckoutProvider";
 import { useRegions } from "@/components/RegionsProvider";
 import client from "@/lib/sanity/client";
 import { HEADER_PAGE_SANITY_QUERY } from "@/lib/const";
+import Head from 'next/head'
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -126,6 +127,10 @@ function CartDetails(props) {
     },
   ];
   return (
+    <>
+    <Head>
+        <title>Eyewear For Every Lifestyle | Glasses & Lenses | Doctor M</title>
+      </Head>
     <Grid
       sx={{ backgroundColor: "#f6f6f6", border: "0px solid #f6f6f6", mt: 1 }}
     >
@@ -418,6 +423,7 @@ function CartDetails(props) {
         </Grid>
       </Grid>
     </Grid>
+    </>
   );
 }
 

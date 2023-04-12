@@ -65,6 +65,7 @@ import BannerImage from "@/components/HomepageBlock/BannerImage";
 import ImageWithTextGrid from "@/components/HomepageBlock/ImageWithTextGrid";
 import ImageWithText from "@/components/HomepageBlock/ImageWithText";
 import BannerCarousal from "@/components/HomepageBlock/BannerCarousal";
+import Head from 'next/head'
 
 export type OptionalQuery = {
   variant?: string;
@@ -368,6 +369,10 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
   console.log("PDP Rendering", new Date());
 
   return (
+    <>
+    <Head>
+        <title>Eyewear For Every Lifestyle | Glasses & Lenses | Doctor M</title>
+      </Head>
     <Grid>
       <Grid item xs={12} className={roboto.className}>
         <BreadcrumbsDetails brand={productAttributesMap.get("Brand")} />
@@ -731,6 +736,7 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
         />
       )}
     </Grid>
+    </>
   );
 }
 

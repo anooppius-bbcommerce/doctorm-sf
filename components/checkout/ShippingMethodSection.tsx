@@ -63,9 +63,9 @@ export function ShippingMethodSection({
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-        <Box>
+        {/* <Box>
           <Looks3Icon />
-        </Box>
+        </Box> */}
         <Typography
           sx={checkoutSectionHeaderActive}
           className={

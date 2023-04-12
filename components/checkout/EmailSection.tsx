@@ -55,7 +55,7 @@ export const checkoutSectionHeaderActive = {
   border: "0px solid #000",
   fontSize: "24px",
   fontWeight: "bold",
-  marginLeft: "10px",
+  marginLeft: "0px",
 };
 const errorMessage = {
   color: "red",
@@ -98,9 +98,9 @@ export function EmailSection({ checkout, locale }: EmailSectionProps) {
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Box>
+        {/* <Box>
           <LooksOneIcon />
-        </Box>
+        </Box> */}
         <Typography sx={checkoutSectionHeaderActive}>
           {t.formatMessage(messages.emailAddressCardHeader)}
         </Typography>

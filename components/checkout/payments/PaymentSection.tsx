@@ -54,9 +54,9 @@ export function PaymentSection({
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-        <Box>
+        {/* <Box>
           <Looks4Icon />
-        </Box>
+        </Box> */}
         <Box
           sx={checkoutSectionHeaderActive}
           className={

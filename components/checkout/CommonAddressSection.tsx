@@ -105,9 +105,9 @@ export function CommonAddressSection({
   return (
     <>
       <Box sx={{ display: "flex", alignItems: "center", mt: 2 }}>
-        <Box>
+        {/* <Box>
           <LooksTwoIcon />
-        </Box>
+        </Box> */}
         <Typography
           sx={checkoutSectionHeaderActive}
           className={

@@ -36,7 +36,7 @@ export function BannerCarousal({ data }) {
         <Carousel
           animation="slide"
           swipe={false}
-          interval={10000}
+          interval={4000}
           navButtonsProps={{
             // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
             style: {

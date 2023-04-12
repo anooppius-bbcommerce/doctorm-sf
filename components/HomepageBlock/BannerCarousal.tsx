@@ -4,6 +4,8 @@ import { PortableText } from "@portabletext/react";
 import Carousel from "react-material-ui-carousel";
 import imageUrlBuilder from "@sanity/image-url";
 import client from "@/lib/sanity/client";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 export function BannerCarousal({ data }) {
   function urlFor(source: string) {
@@ -34,9 +36,12 @@ export function BannerCarousal({ data }) {
     <Box sx={{border:'0px solid #000', }}>
       {contents && (
         <Carousel
-          animation="slide"
+          animateOnRender={false}
           swipe={false}
+          animation="slide"
           interval={4000}
+          PrevIcon={<ArrowBackIosNewIcon sx={{fontSize:'25px'}}/>}
+          NextIcon={<ArrowForwardIosIcon sx={{fontSize:'25px'}}/>}
           navButtonsProps={{
             // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
             style: {
@@ -63,7 +68,7 @@ export function BannerCarousal({ data }) {
           {contents.map((item, index) => (
             <Box key={item._key}>
               <PortableText value={item.image} components={ptComponents} />{" "}
-              <br />
+              
               <Box
                 sx={{
                   mx: 2,

@@ -375,7 +375,6 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
           <Grid xs={7} sx={{ border: "0px solid" }}>
             <Box>
               <Carousel
-                animateOnRender={false}
                 swipe={false}
                 animation="slide"
                 interval={4000}

@@ -13,11 +13,19 @@ import {
   RootCategoriesDocument,
 } from "@/saleor/api";
 import { HOME_PAGE_SANITY_QUERY, HEADER_PAGE_SANITY_QUERY } from "@/lib/const";
+import Head from 'next/head'
 
 function HomeRedirection({
   homePageContent,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  return <HomepageBlock homePageContent={homePageContent} />;
+  return (
+  <>
+  <Head>
+        <title>Eyewear For Every Lifestyle | Glasses & Lenses | Doctor M</title>
+      </Head>
+  <HomepageBlock homePageContent={homePageContent} />
+  </>
+  );
 }
 
 export default HomeRedirection;

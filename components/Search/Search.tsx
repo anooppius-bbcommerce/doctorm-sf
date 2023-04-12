@@ -24,8 +24,8 @@ const searchListWrapper = {
   width: "100%",
   marginTop:'2px',
   background: "#fff",
-  width:'374px',
-  border:'1px solid #ddd',
+  width:'376px',
+  //border:'1px solid #ddd',
 };
 const searchList = {
   background: "#f3f3f3",
@@ -211,13 +211,17 @@ export default function Search({
       <InstantSearch indexName={algoliaIndexName} searchClient={searchClient} style={{width:'100%'}}>
         <Box className="right-panel" sx={{ width: "100%" }}>
           <Box>
-            <Box sx={{ width: "100%" }}>
-              <SearchBox
-                translations={{ placeholder: "Search for products" }}
-                onFocus={(e) => e.target.value !==""?handleSearchClick():null}
-                onChange={(e) => e.target.value !==""?handleSearchClick():checkClickType(handleSearchClose)}
-                onBlur={() => checkClickType(handleSearchClose)}
-              />
+            <Box sx={{ width: "100%", display:'flex',  }}>
+              <Box sx={{width:'22px', display:'flex', alignItems:'center'}}><SearchIcon sx={{color:'#a5a5a5'}}/></Box>
+              <Box sx={{width:'100%'}}>
+                <SearchBox
+                  translations={{ placeholder: "Search for products" }}
+                  onFocus={(e) => e.target.value !==""?handleSearchClick():null}
+                  onChange={(e) => e.target.value !==""?handleSearchClick():checkClickType(handleSearchClose)}
+                  onBlur={() => checkClickType(handleSearchClose)}
+                  
+                />
+              </Box>
             </Box>
           </Box>
           <Box>

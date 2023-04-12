@@ -31,12 +31,12 @@ export function BannerCarousal({ data }) {
 
   const { contents, title } = data || {};
   return (
-    <Box>
+    <Box sx={{border:'0px solid #000', }}>
       {contents && (
         <Carousel
           animation="slide"
-          swipe={true}
-          duration={100}
+          swipe={false}
+          interval={10000}
           navButtonsProps={{
             // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
             style: {
@@ -76,7 +76,7 @@ export function BannerCarousal({ data }) {
                   color: "#343434",
                 }}
               >
-                <Box sx={{ border: "0px solid red", width: "400px" }}>
+                <Box sx={{ border: "0px solid red", width: "400px", height: "143px" }}>
                   <Box
                     sx={{
                       fontWeight: "bold",

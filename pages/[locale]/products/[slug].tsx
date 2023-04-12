@@ -169,6 +169,7 @@ const powerLists = [
 ];
 
 function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
+  console.log("PDP Starting", new Date());
   const router = useRouter();
   const paths = usePaths();
   const t = useIntl();
@@ -312,6 +313,7 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
       // If checkout is already existing, add products
       const { data: addToCartData } = await addProductToCheckout({
         variables: {
+          email: user?.email || "drm_poc_test@bigbangcommerce.com",
           checkoutToken,
           variantId: selectedVariantID,
           locale: query.locale,
@@ -326,7 +328,7 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
       // Theres no checkout, we have to create one
       const { data: createCheckoutData } = await createCheckout({
         variables: {
-          email: user?.email,
+          email: user?.email || "drm_poc_test@bigbangcommerce.com",
           channel: currentChannel.slug || "default-channel",
           lines: [
             {
@@ -362,6 +364,8 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
     !selectedVariant ||
     selectedVariant?.quantityAvailable === 0 ||
     loadingAddToCheckout;
+
+  console.log("PDP Rendering", new Date());
 
   return (
     <Grid>

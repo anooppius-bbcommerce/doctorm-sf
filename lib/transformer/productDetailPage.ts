@@ -1,14 +1,15 @@
-export function getSunglassCategoryMesurementDetails(attributes) {
-  const lensMeasurementMap = new Map();
-  lensMeasurementMap.set("Lens Width", 0.0);
-  lensMeasurementMap.set("Temple Width", 0.0);
-  lensMeasurementMap.set("Bridge Width", 0.0);
-  lensMeasurementMap.set("Frame Width", 0.0);
+export function getSunglassCategoryMesurementDetails(
+  attributes,
+  measurementsTitle
+) {
+  let sunglassMeasurementProperties = new Set(measurementsTitle);
+  const tmpLensMeasurementMap = new Map();
+
   attributes.forEach((attribute) => {
     if (attribute.values[0]) {
       if (attribute.attribute.name && attribute.values[0].name) {
-        if (lensMeasurementMap.has(attribute.attribute.name)) {
-          lensMeasurementMap.set(
+        if (sunglassMeasurementProperties.has(attribute.attribute.name)) {
+          tmpLensMeasurementMap.set(
             attribute.attribute.name,
             attribute.values[0].name
           );
@@ -16,9 +17,16 @@ export function getSunglassCategoryMesurementDetails(attributes) {
       }
     }
   });
+  const sunglassMeasurementMap = new Map();
+  sunglassMeasurementProperties.forEach((sunglassMeasurementProperty) => {
+    sunglassMeasurementMap.set(
+      sunglassMeasurementProperty,
+      tmpLensMeasurementMap.get(sunglassMeasurementProperty)
+    );
+  });
 
-  if (lensMeasurementMap.values()) {
-    return Array.from(lensMeasurementMap.values());
+  if (sunglassMeasurementMap.values()) {
+    return Array.from(sunglassMeasurementMap.values());
   }
   return null;
 }
@@ -63,7 +71,11 @@ export function getProductFeatures(attributes) {
   attributes.forEach((attribute) => {
     if (attribute.values[0]) {
       if (attribute.attribute.name === "Features") {
-        if (attribute?.values && attribute?.values[0] && attribute?.values[0]?.richText) {
+        if (
+          attribute?.values &&
+          attribute?.values[0] &&
+          attribute?.values[0]?.richText
+        ) {
           let data = JSON.parse(attribute?.values[0]?.richText);
           productFeatures = data.blocks[0].data?.items;
         }

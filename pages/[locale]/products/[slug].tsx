@@ -65,7 +65,7 @@ import BannerImage from "@/components/HomepageBlock/BannerImage";
 import ImageWithTextGrid from "@/components/HomepageBlock/ImageWithTextGrid";
 import ImageWithText from "@/components/HomepageBlock/ImageWithText";
 import BannerCarousal from "@/components/HomepageBlock/BannerCarousal";
-import Head from 'next/head'
+import Head from "next/head";
 
 export type OptionalQuery = {
   variant?: string;
@@ -193,12 +193,21 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
   //const [selectedVariant, setSelectedVariant] = useState("");
 
   const productCarouselImg = [];
+  const {
+    productThumpnail,
+    measurements,
+    measurementImages,
+    measurementsTitle,
+    measurementsDes,
+    frameImage,
+    frameCode,
+  } = pdpLayout || {};
   const { name, description, attributes, category, variants } = product;
   let productDescription = JSON.parse(description);
   const productAttributesMap = new Map();
 
   const [sunglassMeasurementDetails, setSunglassMeasurementDetails] = useState(
-    getSunglassCategoryMesurementDetails(attributes)
+    getSunglassCategoryMesurementDetails(attributes, measurementsTitle)
   );
 
   const [pdpDetails, setPdpDetails] = useState(getProductDetails(attributes));
@@ -223,16 +232,6 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
   if (productDescription.blocks[0]) {
     productDescription = productDescription.blocks[0].data.text;
   }
-
-  const {
-    productThumpnail,
-    measurements,
-    measurementImages,
-    measurementsTitle,
-    measurementsDes,
-    frameImage,
-    frameCode,
-  } = pdpLayout || {};
 
   const [power, setPower] = React.useState();
   const [zoomModalDetails, setZoomModalDetails] = React.useState({
@@ -370,269 +369,71 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
 
   return (
     <>
-    <Head>
+      <Head>
         <title>Eyewear For Every Lifestyle | Glasses & Lenses | Doctor M</title>
       </Head>
-    <Grid>
-      <Grid item xs={12} className={roboto.className}>
-        <BreadcrumbsDetails brand={productAttributesMap.get("Brand")} />
-        <Grid container xs={12} sx={{ mt: 10 }}>
-          <Grid xs={7} sx={{ border: "0px solid" }}>
-            <Box>
-              <Carousel
-                swipe={false}
-                animation="slide"
-                interval={4000}
-                width="100%"
-                PrevIcon={<ArrowBackIosNewIcon sx={{fontSize:'50px'}}/>}
-                NextIcon={<ArrowForwardIosIcon sx={{fontSize:'50px'}}/>}
-                navButtonsProps={{
-                  // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
-                  style: {
-                    background: "none",
-                    color: "#F7961C",
-                  },
-                }}
-                navButtonsAlwaysVisible={true}
-                activeIndicatorIconButtonProps={{
-                  style: {
-                    backgroundColor: "#F7961C",
-                    color: "#F7961C",
-                  },
-                }}
-                indicatorIconButtonProps={{
-                  style: {
-                    color: "#b2be9a",
-                    marginRight: "10px",
-                  },
+      <Grid>
+        <Grid item xs={12} className={roboto.className}>
+          <BreadcrumbsDetails brand={productAttributesMap.get("Brand")} />
+          <Grid container xs={12} sx={{ mt: 10 }}>
+            <Grid xs={7} sx={{ border: "0px solid" }}>
+              <Box>
+                <Carousel
+                  swipe={false}
+                  animation="slide"
+                  interval={4000}
+                  width="100%"
+                  PrevIcon={<ArrowBackIosNewIcon sx={{ fontSize: "50px" }} />}
+                  NextIcon={<ArrowForwardIosIcon sx={{ fontSize: "50px" }} />}
+                  navButtonsProps={{
+                    // Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
+                    style: {
+                      background: "none",
+                      color: "#F7961C",
+                    },
+                  }}
+                  navButtonsAlwaysVisible={true}
+                  activeIndicatorIconButtonProps={{
+                    style: {
+                      backgroundColor: "#F7961C",
+                      color: "#F7961C",
+                    },
+                  }}
+                  indicatorIconButtonProps={{
+                    style: {
+                      color: "#b2be9a",
+                      marginRight: "10px",
+                    },
+                  }}
+                >
+                  {selectedVariant?.media.map((image, index) => (
+                    <Box
+                      key={index}
+                      sx={{ textAlign: "center", cursor: "zoom-in" }}
+                      onClick={() => zoom(image)}
+                    >
+                      <Image
+                        src={image.url}
+                        alt="fff"
+                        width={700}
+                        height={400}
+                      ></Image>
+                    </Box>
+                  ))}
+                </Carousel>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  border: "0px solid",
+                  ml: 2,
+                  mr: 2,
+                  mt: 5,
                 }}
               >
                 {selectedVariant?.media.map((image, index) => (
-                  <Box
-                    key={index}
-                    sx={{ textAlign: "center", cursor: "zoom-in" }}
-                    onClick={() => zoom(image)}
-                  >
-                    <Image
-                      src={image.url}
-                      alt="fff"
-                      width={700}
-                      height={400}
-                    ></Image>
-                  </Box>
-                ))}
-              </Carousel>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                border: "0px solid",
-                ml: 2,
-                mr: 2,
-                mt: 5,
-              }}
-            >
-              {selectedVariant?.media.map((image, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    border: "0px solid",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    width: "25%",
-                  }}
-                >
-                  <Image
-                    src={image.url}
-                    alt="fff"
-                    width={120}
-                    height={70}
-                  ></Image>
-                </Box>
-              ))}
-            </Box>
-          </Grid>
-          <Grid xs={5} sx={{ border: "0px solid" }}>
-            <Box sx={productDis}>
-              <Box sx={titleStyle}>
-                <b>{productAttributesMap.get("Brand")}</b> {name}
-              </Box>
-              <Box sx={dis}>{productDescription}</Box>
-              <Box sx={types}>
-                <Box component="span" sx={space}>
-                  <DoneIcon sx={tickColor} />
-                  <Box component="span">
-                    {productAttributesMap.get("Shape")}
-                  </Box>
-                </Box>
-                <Box component="span">|</Box>
-                <Box component="span" sx={space}>
-                  <DoneIcon sx={tickColor} />
-                  <Box component="span">{productAttributesMap.get("Fit")}</Box>
-                </Box>
-                <Box component="span">|</Box>
-                <Box component="span" sx={space}>
-                  <DoneIcon sx={tickColor} />
-                  <Box component="span">
-                    {productAttributesMap.get("Frame Material")}
-                  </Box>
-                </Box>
-              </Box>
-              {category.name === "Sunglasses" && (
-                <Box>
-                  <Box sx={{ fontSize: "20px", mt: 3 }}>
-                    <b>Frame Color</b> :{" "}
-                    {selectedVariant?.attributes[0]?.values[0]?.name}
-                  </Box>
-                  <Box sx={{ mt: 2, display: "flex" }}>
-                    {/* <PortableText value={frameImage} components={ptComponents} /> */}
-
-                    <VariantSelector
-                      variants={productVariant}
-                      selectedVariantID={selectedVariantID}
-                      product={product}
-                      setProductRequiredDetails={setProductRequiredDetails}
-                    />
-                  </Box>
-                </Box>
-              )}
-
-              {category.name !== "Sunglasses" && (
-                <Box>
-                  <Box sx={{ fontSize: "20px", mt: 3, fontWeight: "bold" }}>
-                    Enter your prescription
-                  </Box>
-                  <Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        border: "0px solid",
-                        mt: 3,
-                      }}
-                    >
-                      <Box sx={{ border: "0px solid" }}>Sphere (Power) :</Box>
-                      <Box sx={{ border: "0px solid", width: "60%" }}>
-                        <FormControl style={{ minWidth: 220 }}>
-                          <InputLabel id="demo-simple-select-autowidth-label">
-                            Select
-                          </InputLabel>
-                          <Select
-                            labelId="demo-simple-select-autowidth-label"
-                            id="demo-simple-select-autowidth"
-                            value={power}
-                            onChange={handleChange}
-                            label="Power"
-                            sx={{ width: "100%" }}
-                          >
-                            {powerLists.map((item, index) => (
-                              <MenuItem key={index} value={item}>
-                                {item}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </FormControl>
-                      </Box>
-                    </Box>
-                    <Box sx={{ mt: 2 }}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            sx={{
-                              color: "#F7961C",
-                              "&.Mui-checked": {
-                                color: "#F7961C",
-                              },
-                            }}
-                          />
-                        }
-                        label="I need 2 different powers"
-                      />
-                    </Box>
-                  </Box>
-                </Box>
-              )}
-            </Box>
-          </Grid>
-
-          <Grid xs={12}>
-            <Box
-              sx={{ background: "#F5F5F5", p: 4, mt: 5 }}
-              display="flex"
-              justifyContent="flex-end"
-              alignItems="flex-end"
-            >
-              <Box sx={{ fontSize: "30px" }}>
-                {formatPrice(selectedVariant?.pricing?.price?.gross)}
-              </Box>
-              <Button
-                onClick={onAddToCart}
-                type="submit"
-                variant="contained"
-                sx={{
-                  backgroundColor: "#ff9905",
-                  "&:hover": {
-                    backgroundColor: "#f59407",
-                  },
-                  ml: 3,
-                  color: "#343434",
-                  textTransform: "capitalize",
-                  fontWeight: "bold",
-                  fontSize: "16px",
-                  pl: 10,
-                  pr: 10,
-                  pt: 1,
-                  pb: 1,
-                }}
-              >
-                Add to cart
-              </Button>
-            </Box>
-          </Grid>
-          <Grid xs={12}>
-            <Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  margin: "auto",
-                  mt: 6,
-                  mb: 1.5,
-                  fontSize: "35px",
-                }}
-              >
-                {measurements}
-              </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  margin: "auto",
-                  mb: 6,
-                }}
-              >
-                <Divider
-                  sx={{
-                    width: "10%",
-                    borderBottomWidth: 4,
-                    background: "#343434",
-                  }}
-                />
-              </Box>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              {measurementImages &&
-                measurementImages.map((val, index) => (
                   <Box
                     key={index}
                     sx={{
@@ -640,102 +441,311 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      width: "100%",
+                      width: "25%",
                     }}
                   >
-                    <Box sx={{ border: "0px solid", textAlign: "center" }}>
-                      <PortableText value={val} components={thumpComponents} />
-                      <Box sx={{ textAlign: "center", mt: 2 }}>
-                        <Box sx={{ textAlign: "center", fontSize: "22px" }}>
-                          {measurementsTitle[index]}
+                    <Image
+                      src={image.url}
+                      alt="fff"
+                      width={120}
+                      height={70}
+                    ></Image>
+                  </Box>
+                ))}
+              </Box>
+            </Grid>
+            <Grid xs={5} sx={{ border: "0px solid" }}>
+              <Box sx={productDis}>
+                <Box sx={titleStyle}>
+                  <b>{productAttributesMap.get("Brand")}</b> {name}
+                </Box>
+                <Box sx={dis}>{productDescription}</Box>
+                <Box sx={types}>
+                  <Box component="span" sx={space}>
+                    <DoneIcon sx={tickColor} />
+                    <Box component="span">
+                      {productAttributesMap.get("Shape")}
+                    </Box>
+                  </Box>
+                  <Box component="span">|</Box>
+                  <Box component="span" sx={space}>
+                    <DoneIcon sx={tickColor} />
+                    <Box component="span">
+                      {productAttributesMap.get("Fit")}
+                    </Box>
+                  </Box>
+                  <Box component="span">|</Box>
+                  <Box component="span" sx={space}>
+                    <DoneIcon sx={tickColor} />
+                    <Box component="span">
+                      {productAttributesMap.get("Frame Material")}
+                    </Box>
+                  </Box>
+                </Box>
+                {category.name === "Sunglasses" && (
+                  <Box>
+                    <Box sx={{ fontSize: "20px", mt: 3 }}>
+                      <b>Frame Color</b> :{" "}
+                      {selectedVariant?.attributes[0]?.values[0]?.name}
+                    </Box>
+                    <Box sx={{ mt: 2, display: "flex" }}>
+                      {/* <PortableText value={frameImage} components={ptComponents} /> */}
+
+                      <VariantSelector
+                        variants={productVariant}
+                        selectedVariantID={selectedVariantID}
+                        product={product}
+                        setProductRequiredDetails={setProductRequiredDetails}
+                      />
+                    </Box>
+                  </Box>
+                )}
+
+                {category.name !== "Sunglasses" && (
+                  <Box>
+                    <Box sx={{ fontSize: "20px", mt: 3, fontWeight: "bold" }}>
+                      Enter your prescription
+                    </Box>
+                    <Box>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                          border: "0px solid",
+                          mt: 3,
+                        }}
+                      >
+                        <Box sx={{ border: "0px solid" }}>Sphere (Power) :</Box>
+                        <Box sx={{ border: "0px solid", width: "60%" }}>
+                          <FormControl style={{ minWidth: 220 }}>
+                            <InputLabel id="demo-simple-select-autowidth-label">
+                              Select
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-autowidth-label"
+                              id="demo-simple-select-autowidth"
+                              value={power}
+                              onChange={handleChange}
+                              label="Power"
+                              sx={{ width: "100%" }}
+                            >
+                              {powerLists.map((item, index) => (
+                                <MenuItem key={index} value={item}>
+                                  {item}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </FormControl>
                         </Box>
-                        <Box
-                          sx={{
-                            textAlign: "center",
-                            fontSize: "20px",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          {sunglassMeasurementDetails &&
-                            sunglassMeasurementDetails[index] + " mm"}
-                        </Box>
+                      </Box>
+                      <Box sx={{ mt: 2 }}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              sx={{
+                                color: "#F7961C",
+                                "&.Mui-checked": {
+                                  color: "#F7961C",
+                                },
+                              }}
+                            />
+                          }
+                          label="I need 2 different powers"
+                        />
                       </Box>
                     </Box>
                   </Box>
-                ))}
-            </Box>
-          </Grid>
-          <PdpDetail pdpDetails={pdpDetails} productFeature={productFeature} />
-        </Grid>
-      </Grid>
+                )}
+              </Box>
+            </Grid>
 
-      <Grid item xs={12}>
-        <Box>
-          {contents &&
-            Array.isArray(contents) &&
-            contents.map((content) => {
-              if (content._type == "bannerCarousal") {
-                return (
-                  <BannerCarousal
-                    key={content._key}
-                    data={content}
-                  ></BannerCarousal>
-                );
-              }
-              if (content._type == "imageWithText") {
-                return (
-                  <ImageWithText
-                    key={content._key}
-                    data={content}
-                  ></ImageWithText>
-                );
-              }
-              if (content._type == "imageWithTextGrid") {
-                return (
-                  <ImageWithTextGrid
-                    key={content._key}
-                    data={content}
-                  ></ImageWithTextGrid>
-                );
-              }
-              if (content._type == "catalogueBanner") {
-                return (
-                  <BannerImage key={content._key} data={content}></BannerImage>
-                );
-              }
-              if (content._type == "topProducts") {
-                return (
-                  <TopProducts
-                    key={content._key}
-                    data={content}
-                    locale={locale}
-                  ></TopProducts>
-                );
-              }
-              if (content._type == "topBrands") {
-                return (
-                  <TopBrands key={content._key} data={content}></TopBrands>
-                );
-              }
-              if (content._type == "topCategories") {
-                return (
-                  <TopCategories
-                    key={content._key}
-                    data={content}
-                  ></TopCategories>
-                );
-              }
-              return "";
-            })}
-        </Box>
+            <Grid xs={12}>
+              <Box
+                sx={{ background: "#F5F5F5", p: 4, mt: 5 }}
+                display="flex"
+                justifyContent="flex-end"
+                alignItems="flex-end"
+              >
+                <Box sx={{ fontSize: "30px" }}>
+                  {formatPrice(selectedVariant?.pricing?.price?.gross)}
+                </Box>
+                <Button
+                  onClick={onAddToCart}
+                  type="submit"
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "#ff9905",
+                    "&:hover": {
+                      backgroundColor: "#f59407",
+                    },
+                    ml: 3,
+                    color: "#343434",
+                    textTransform: "capitalize",
+                    fontWeight: "bold",
+                    fontSize: "16px",
+                    pl: 10,
+                    pr: 10,
+                    pt: 1,
+                    pb: 1,
+                  }}
+                >
+                  Add to cart
+                </Button>
+              </Box>
+            </Grid>
+            <Grid xs={12}>
+              <Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    margin: "auto",
+                    mt: 6,
+                    mb: 1.5,
+                    fontSize: "35px",
+                  }}
+                >
+                  {measurements}
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    margin: "auto",
+                    mb: 6,
+                  }}
+                >
+                  <Divider
+                    sx={{
+                      width: "10%",
+                      borderBottomWidth: 4,
+                      background: "#343434",
+                    }}
+                  />
+                </Box>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                {measurementImages &&
+                  measurementImages.map((val, index) => (
+                    <Box
+                      key={index}
+                      sx={{
+                        border: "0px solid",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "100%",
+                      }}
+                    >
+                      <Box sx={{ border: "0px solid", textAlign: "center" }}>
+                        <PortableText
+                          value={val}
+                          components={thumpComponents}
+                        />
+                        <Box sx={{ textAlign: "center", mt: 2 }}>
+                          <Box sx={{ textAlign: "center", fontSize: "22px" }}>
+                            {measurementsTitle[index]}
+                          </Box>
+                          <Box
+                            sx={{
+                              textAlign: "center",
+                              fontSize: "20px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {sunglassMeasurementDetails &&
+                              sunglassMeasurementDetails[index] + " mm"}
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Box>
+                  ))}
+              </Box>
+            </Grid>
+            <PdpDetail
+              pdpDetails={pdpDetails}
+              productFeature={productFeature}
+            />
+          </Grid>
+        </Grid>
+
+        <Grid item xs={12}>
+          <Box>
+            {contents &&
+              Array.isArray(contents) &&
+              contents.map((content) => {
+                if (content._type == "bannerCarousal") {
+                  return (
+                    <BannerCarousal
+                      key={content._key}
+                      data={content}
+                    ></BannerCarousal>
+                  );
+                }
+                if (content._type == "imageWithText") {
+                  return (
+                    <ImageWithText
+                      key={content._key}
+                      data={content}
+                    ></ImageWithText>
+                  );
+                }
+                if (content._type == "imageWithTextGrid") {
+                  return (
+                    <ImageWithTextGrid
+                      key={content._key}
+                      data={content}
+                    ></ImageWithTextGrid>
+                  );
+                }
+                if (content._type == "catalogueBanner") {
+                  return (
+                    <BannerImage
+                      key={content._key}
+                      data={content}
+                    ></BannerImage>
+                  );
+                }
+                if (content._type == "topProducts") {
+                  return (
+                    <TopProducts
+                      key={content._key}
+                      data={content}
+                      locale={locale}
+                    ></TopProducts>
+                  );
+                }
+                if (content._type == "topBrands") {
+                  return (
+                    <TopBrands key={content._key} data={content}></TopBrands>
+                  );
+                }
+                if (content._type == "topCategories") {
+                  return (
+                    <TopCategories
+                      key={content._key}
+                      data={content}
+                    ></TopCategories>
+                  );
+                }
+                return "";
+              })}
+          </Box>
+        </Grid>
+        {zoomModalDetails.display && (
+          <ZoomModal
+            zoomModalDetails={zoomModalDetails}
+            setZoomModalDetails={setZoomModalDetails}
+          />
+        )}
       </Grid>
-      {zoomModalDetails.display && (
-        <ZoomModal
-          zoomModalDetails={zoomModalDetails}
-          setZoomModalDetails={setZoomModalDetails}
-        />
-      )}
-    </Grid>
     </>
   );
 }

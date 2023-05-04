@@ -66,6 +66,7 @@ import ImageWithTextGrid from "@/components/HomepageBlock/ImageWithTextGrid";
 import ImageWithText from "@/components/HomepageBlock/ImageWithText";
 import BannerCarousal from "@/components/HomepageBlock/BannerCarousal";
 import Head from "next/head";
+import CustomMedia from "@/components/HomepageBlock/CustomMedia";
 
 export type OptionalQuery = {
   variant?: string;
@@ -712,6 +713,9 @@ function ProductDetails({ pdpLayout, product, pdpDefinedPageContent }) {
                       data={content}
                     ></BannerImage>
                   );
+                }
+                if (content._type == "customMedia") {
+                  return <CustomMedia key={content._key} data={content}></CustomMedia>
                 }
                 if (content._type == "topProducts") {
                   return (

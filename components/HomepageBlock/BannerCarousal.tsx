@@ -67,7 +67,6 @@ export function BannerCarousal({ data }) {
           {contents.map((item, index) => (
             <Box key={item._key}>
               <PortableText value={item.image} components={ptComponents} />{" "}
-              
               <Box
                 sx={{
                   mx: 2,
@@ -112,7 +111,7 @@ export function BannerCarousal({ data }) {
                         textDecoration: "none",
                       }}
                     >
-                      {item.bannerButton.text}
+                      {item?.bannerButton?.text}
                     </Button>
                   </Box>
                 </Box>

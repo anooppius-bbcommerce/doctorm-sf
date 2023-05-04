@@ -25,7 +25,7 @@ export function CustomMedia({ data }) {
         const { extension, url, alt } = fileAsset;
         if (["mp4", "mov", "mpeg", "m4v", "avi"].includes(extension)) {
           return (
-            <video title={alt} loop autoPlay playsInline controls>
+            <video title={alt} loop autoPlay playsInline controls width="100%">
               <source src={url} type={`video/${extension}`} />
             </video>
           );
